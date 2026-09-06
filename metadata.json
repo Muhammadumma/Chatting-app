@@ -1,0 +1,6 @@
+{
+  "name": "WhatsApp",
+  "description": "WhatsApp featuring the latest Liquid Glass design language, dynamic chat filters, status story viewer, floating frosted input bar, and rounded pill message bubbles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
