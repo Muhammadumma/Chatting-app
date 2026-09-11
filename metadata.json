@@ -1,6 +1,6 @@
 {
-  "name": "WhatsApp",
-  "description": "WhatsApp featuring the latest Liquid Glass design language, dynamic chat filters, status story viewer, floating frosted input bar, and rounded pill message bubbles.",
+  "name": "Kick",
+  "description": "Kick: The Trust-Distance Network. Connect with your circle, discover your 2nd-degree extended network, explore the Lattice radar, and initiate private Conduit introductions without exposing relationship paths.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

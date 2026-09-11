@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.model.Chat
@@ -65,6 +66,8 @@ fun ChatsScreen(
   onCameraClick: () -> Unit,
   onSearchClick: () -> Unit,
   onNewChatClick: () -> Unit,
+  onOpenPrismProfile: (() -> Unit)? = null,
+  onOpenConduitTray: (() -> Unit)? = null,
   modifier: Modifier = Modifier
 ) {
   var showMenu by remember { mutableStateOf(false) }
@@ -140,6 +143,29 @@ fun ChatsScreen(
             )
           }
 
+          // Prism Profile Avatar Button
+          if (onOpenPrismProfile != null) {
+            IconButton(
+              onClick = onOpenPrismProfile,
+              modifier = Modifier.testTag("header_prism_profile_btn")
+            ) {
+              Box(
+                modifier = Modifier
+                  .size(28.dp)
+                  .clip(CircleShape)
+                  .background(Color(0xFF00E5B8)),
+                contentAlignment = Alignment.Center
+              ) {
+                Text(
+                  text = "M",
+                  color = Color(0xFF080D12),
+                  fontSize = 13.sp,
+                  fontWeight = FontWeight.Bold
+                )
+              }
+            }
+          }
+
           // 3. Overflow Menu (Three dots)
           Box {
             IconButton(
@@ -158,6 +184,18 @@ fun ChatsScreen(
               expanded = showMenu,
               onDismissRequest = { showMenu = false }
             ) {
+              if (onOpenPrismProfile != null) {
+                DropdownMenuItem(
+                  text = { Text("The Prism Profile") },
+                  onClick = { showMenu = false; onOpenPrismProfile() }
+                )
+              }
+              if (onOpenConduitTray != null) {
+                DropdownMenuItem(
+                  text = { Text("Conduit Warm Intro Inbox") },
+                  onClick = { showMenu = false; onOpenConduitTray() }
+                )
+              }
               DropdownMenuItem(
                 text = { Text("New group") },
                 onClick = { showMenu = false; onNewChatClick() }

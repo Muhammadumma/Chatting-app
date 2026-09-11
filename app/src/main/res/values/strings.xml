@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">WhatsApp</string>
-    <string name="tab_chats">Chats</string>
-    <string name="tab_updates">Updates</string>
-    <string name="tab_communities">Communities</string>
+    <string name="app_name">Kick</string>
+    <string name="tab_chats">Dialogs</string>
+    <string name="tab_horizon">Horizon</string>
+    <string name="tab_lattice">Lattice</string>
+    <string name="tab_guilds">Guilds</string>
     <string name="tab_calls">Calls</string>
     <string name="filter_all">All</string>
     <string name="filter_unread">Unread</string>
-    <string name="filter_personal">Personal</string>
-    <string name="filter_business">Business</string>
-    <string name="filter_groups">Groups</string>
-    <string name="search_hint">Search or ask Meta AI</string>
+    <string name="filter_personal">Direct</string>
+    <string name="filter_business">Projects</string>
+    <string name="filter_groups">Guilds</string>
+    <string name="search_hint">Search network, chats, or ask Scout</string>
     <string name="type_a_message">Message</string>
 </resources>

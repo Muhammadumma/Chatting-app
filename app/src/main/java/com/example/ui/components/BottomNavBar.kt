@@ -20,12 +20,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Groups
-import androidx.compose.material.icons.filled.Update
+import androidx.compose.material.icons.filled.Hub
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.ChatBubbleOutline
+import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.Groups
-import androidx.compose.material.icons.outlined.MotionPhotosOn
+import androidx.compose.material.icons.outlined.Hub
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -43,17 +45,24 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.theme.WhatsAppGreen
-import com.example.ui.theme.WhatsAppGreenContainer
-import com.example.ui.theme.WhatsAppGreenDeep
-import com.example.ui.theme.WhatsAppTextPrimary
-import com.example.ui.theme.WhatsAppTextSecondary
+import com.example.ui.theme.KickBorder
+import com.example.ui.theme.KickCyan
+import com.example.ui.theme.KickObsidian
+import com.example.ui.theme.KickTextPrimary
+import com.example.ui.theme.KickTextSecondary
 
 enum class NavTab {
-  CHATS,
-  UPDATES,
-  COMMUNITIES,
-  CALLS
+  DIALOGS,
+  HORIZON,
+  LATTICE,
+  GUILDS,
+  CALLS;
+
+  companion object {
+    val CHATS = DIALOGS
+    val UPDATES = HORIZON
+    val COMMUNITIES = GUILDS
+  }
 }
 
 data class NavItem(
@@ -73,21 +82,28 @@ fun BottomNavBar(
 ) {
   val items = listOf(
     NavItem(
-      tab = NavTab.CHATS,
-      title = "Chats",
+      tab = NavTab.DIALOGS,
+      title = "Dialogs",
       selectedIcon = Icons.AutoMirrored.Filled.Chat,
       unselectedIcon = Icons.Outlined.ChatBubbleOutline,
       badgeCount = unreadChatsCount
     ),
     NavItem(
-      tab = NavTab.UPDATES,
-      title = "Updates",
-      selectedIcon = Icons.Filled.Update,
-      unselectedIcon = Icons.Outlined.MotionPhotosOn
+      tab = NavTab.HORIZON,
+      title = "Horizon",
+      selectedIcon = Icons.Filled.Explore,
+      unselectedIcon = Icons.Outlined.Explore,
+      badgeCount = 3
     ),
     NavItem(
-      tab = NavTab.COMMUNITIES,
-      title = "Communities",
+      tab = NavTab.LATTICE,
+      title = "Lattice",
+      selectedIcon = Icons.Filled.Hub,
+      unselectedIcon = Icons.Outlined.Hub
+    ),
+    NavItem(
+      tab = NavTab.GUILDS,
+      title = "Guilds",
       selectedIcon = Icons.Filled.Groups,
       unselectedIcon = Icons.Outlined.Groups
     ),
@@ -99,36 +115,36 @@ fun BottomNavBar(
     )
   )
 
-  // Floating Translucent Liquid Glass Bottom Navigation Bar
+  // Floating Translucent Liquid Glass Bottom Navigation Bar for Kick
   Box(
     modifier = modifier
       .fillMaxWidth()
       .navigationBarsPadding()
-      .padding(horizontal = 16.dp, vertical = 8.dp)
-      .testTag("liquid_glass_bottom_nav")
+      .padding(horizontal = 12.dp, vertical = 6.dp)
+      .testTag("kick_liquid_bottom_nav")
   ) {
     Surface(
       modifier = Modifier
         .fillMaxWidth()
         .shadow(
-          elevation = 10.dp,
-          shape = RoundedCornerShape(28.dp),
-          ambientColor = Color(0x18000000),
-          spotColor = Color(0x2200A884)
+          elevation = 16.dp,
+          shape = RoundedCornerShape(26.dp),
+          ambientColor = Color(0x60000000),
+          spotColor = Color(0x4000E5B8)
         )
         .border(
           width = 1.dp,
-          color = Color(0x2800A884),
-          shape = RoundedCornerShape(28.dp)
+          color = KickBorder,
+          shape = RoundedCornerShape(26.dp)
         ),
-      shape = RoundedCornerShape(28.dp),
-      color = Color(0xF5FFFFFF), // Liquid Glass frosted white
-      tonalElevation = 3.dp
+      shape = RoundedCornerShape(26.dp),
+      color = KickObsidian.copy(alpha = 0.92f),
+      tonalElevation = 6.dp
     ) {
       Row(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(horizontal = 8.dp, vertical = 6.dp),
+          .padding(horizontal = 6.dp, vertical = 6.dp),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
       ) {
@@ -137,7 +153,7 @@ fun BottomNavBar(
           val interactionSource = remember { MutableInteractionSource() }
 
           val iconTint by animateColorAsState(
-            targetValue = if (isSelected) WhatsAppGreenDeep else WhatsAppTextSecondary,
+            targetValue = if (isSelected) KickCyan else KickTextSecondary,
             label = "tab_icon_tint"
           )
 
@@ -150,7 +166,7 @@ fun BottomNavBar(
                 indication = null,
                 onClick = { onTabSelected(item.tab) }
               )
-              .padding(horizontal = 12.dp, vertical = 4.dp)
+              .padding(horizontal = 8.dp, vertical = 4.dp)
               .testTag("nav_tab_${item.tab.name.lowercase()}")
           ) {
             Box(
@@ -160,9 +176,9 @@ fun BottomNavBar(
               if (isSelected) {
                 Box(
                   modifier = Modifier
-                    .size(width = 54.dp, height = 28.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(WhatsAppGreenContainer)
+                    .size(width = 48.dp, height = 26.dp)
+                    .clip(RoundedCornerShape(13.dp))
+                    .background(KickCyan.copy(alpha = 0.16f))
                 )
               }
 
@@ -179,13 +195,13 @@ fun BottomNavBar(
                   modifier = Modifier
                     .align(Alignment.TopEnd)
                     .clip(CircleShape)
-                    .background(WhatsAppGreen)
-                    .padding(horizontal = 5.dp, vertical = 1.dp)
+                    .background(KickCyan)
+                    .padding(horizontal = 4.dp, vertical = 1.dp)
                 ) {
                   Text(
                     text = item.badgeCount.toString(),
-                    color = Color.White,
-                    fontSize = 10.sp,
+                    color = Color(0xFF080D12),
+                    fontSize = 9.sp,
                     fontWeight = FontWeight.Bold
                   )
                 }
@@ -197,9 +213,9 @@ fun BottomNavBar(
             Text(
               text = item.title,
               style = MaterialTheme.typography.labelSmall.copy(
-                fontSize = 11.sp,
+                fontSize = 10.sp,
                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                color = if (isSelected) WhatsAppTextPrimary else WhatsAppTextSecondary
+                color = if (isSelected) KickCyan else KickTextSecondary
               )
             )
           }
